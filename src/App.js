@@ -1,10 +1,16 @@
-import "./style.scss"
-import CategoriesContainer from "./Components/CatogoriesContainer/CategoriesContainer";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Routes/Home.Router";
+import NavigationBar from "./Components/NavigationBar/NavigationBar";
+
 function App() {
- 
-  
+
+
   return (
-    <CategoriesContainer />
+    <Routes>
+      <Route path="/" element={<NavigationBar />}>
+        <Route index element={<Home />} />
+      </Route>
+    </Routes>
   );
 }
 
