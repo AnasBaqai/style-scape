@@ -22,6 +22,8 @@ const SignUpForm = () => {
         event.preventDefault();
         if(password === confirmPassword){
             const {user} = await createAuthUserWithEmailandPassword(email,password);
+            user.displayName= displayName;
+            console.log(user);
             const userDocRef = createUserDocument(user);
         }
     }

@@ -4,6 +4,7 @@ const Signin = () => {
     const signInHandler = async () => {
         try {
             const { user } = await signInWithGooglePopUp()
+         
             const userDocRef = createUserDocument(user);
         } catch (err) {
             console.log(err);
