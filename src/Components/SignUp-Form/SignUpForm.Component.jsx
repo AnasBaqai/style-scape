@@ -5,7 +5,9 @@ import FormInput from "../form-input/FormInput.Component";
 import { createAuthUserWithEmailandPassword, createUserDocument } from "../../utils/FireBase/firebase.utils";
 
 import "./SignUpForm.styles.scss"
+
 import Button from "../Button/Button.Component";
+
 const defaultFormFields = {
     displayName: "",
     email: "",
@@ -18,7 +20,7 @@ const SignUpForm = () => {
 
     const { displayName, email, password, confirmPassword } = formFields;
 
-    const restFormField= ()=>{
+    const restFormField = () => {
 
         setFormFields(defaultFormFields);
     }
@@ -34,11 +36,11 @@ const SignUpForm = () => {
         if (password === confirmPassword) {
             try {
                 const { user } = await createAuthUserWithEmailandPassword(email, password);
-                console.log(user);
-                const userDocRef = createUserDocument(user,{displayName:displayName});
+             
+                const userDocRef = createUserDocument(user, { displayName });
                 restFormField()
             } catch (err) {
-                if(err.code === "auth/email-already-in-use")
+                if (err.code === "auth/email-already-in-use")
                     alert("email already in use")
                 console.log(err);
             }
@@ -48,14 +50,14 @@ const SignUpForm = () => {
     }
     return (
         <div className="sign-up-container">
-        <h2>Don't have an account</h2>
+            <h2>Don't have an account</h2>
             <h1>Sign Up with your email and password</h1>
             <form onSubmit={onSubmitHandler}>
 
                 <FormInput label={"UserName"} type="text" required name="displayName" value={displayName} onChange={onChangeHandler} />
 
                 <FormInput label={"email"} type="Email" required name="email" value={email} onChange={onChangeHandler} />
-             
+
                 <FormInput label={"Password"} type="password" required name="password" value={password} onChange={onChangeHandler} />
 
                 <FormInput label={"ConfirmPassword"} type="password" required name="confirmPassword" value={confirmPassword} onChange={onChangeHandler} />
