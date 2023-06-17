@@ -38,6 +38,11 @@ const SignInForm = () => {
             console.log(user)
             restFormField()
         } catch (err) {
+            if(err.code === "auth/wrong-password"){
+                alert("wrong password");
+            }else if(err.code === "auth/user-not-found"){
+                alert("wrong email");
+            }
             console.log(err.code)
         }
 
@@ -48,14 +53,14 @@ const SignInForm = () => {
     return (
         <div className="sign-up-container">
             <h2>already have an account</h2>
-            <h5>Sign In with your email and password</h5>
+            <span>Sign In with your email and password</span>
             <form onSubmit={submitHandler}>
 
                 <FormInput label="Email" type="email" name="email" value={email} required onChange={onChangeHandler} />
                 <FormInput label="Password" type="password" name="password" value={password} required onChange={onChangeHandler} />
                 <div className="buttons-container">
                     <Button type="submit" >SIGN IN</Button>
-                    <Button onClick={GoogleSignInHandler} buttonType={"google"}>GOOGLE SIGN IN</Button>
+                    <Button type="button" onClick={GoogleSignInHandler} buttonType={"google"}>GOOGLE SIGN IN</Button>
                 </div>
             </form>
         </div>
