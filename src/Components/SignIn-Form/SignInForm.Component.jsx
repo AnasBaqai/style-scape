@@ -1,8 +1,11 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { signInWithGooglePopUp, createUserDocument, SignInUserWithEmailPassword } from "../../utils/FireBase/firebase.utils"
 import "./SignInForm.Styles.scss"
 import Button from "../Button/Button.Component"
 import FormInput from "../form-input/FormInput.Component"
+
+import { UserContext } from "../../Context/UserContext"
+
 
 const defaultSignInFields = {
     email: '',
@@ -11,6 +14,7 @@ const defaultSignInFields = {
 const SignInForm = () => {
     const [siginInFields, setsignInfields] = useState(defaultSignInFields)
     const { email, password } = siginInFields;
+    const { setCurrentUser } = useContext(UserContext)
     const onChangeHandler = (e) => {
         const { name, value } = e.target;
         setsignInfields({ ...siginInFields, [name]: value });
@@ -34,13 +38,14 @@ const SignInForm = () => {
     const submitHandler = async (event) => {
         event.preventDefault();
         try {
-            const user = await SignInUserWithEmailPassword(email, password);
-            console.log(user)
+            
+            const user  = await SignInUserWithEmailPassword(email, password);
+            setCurrentUser(user);
             restFormField()
         } catch (err) {
-            if(err.code === "auth/wrong-password"){
+            if (err.code === "auth/wrong-password") {
                 alert("wrong password");
-            }else if(err.code === "auth/user-not-found"){
+            } else if (err.code === "auth/user-not-found") {
                 alert("wrong email");
             }
             console.log(err.code)
