@@ -36,7 +36,7 @@ const SignUpForm = () => {
         if (password === confirmPassword) {
             try {
                 const { user } = await createAuthUserWithEmailandPassword(email, password);
-             
+ 
                 const userDocRef = createUserDocument(user, { displayName });
                 restFormField()
             } catch (err) {

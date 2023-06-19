@@ -3,10 +3,14 @@ import { Fragment, useContext } from "react";
 import "./navigation-bar.scss";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { UserContext } from "../../Context/UserContext";
-
+import { signOutUser } from "../../utils/FireBase/firebase.utils";
 const NavigationBar = () => {
-    const { currentUser } = useContext(UserContext);
-    console.log(currentUser)
+    const { currentUser,setCurrentUser } = useContext(UserContext);
+    const signOutHandler= async()=>{
+        await signOutUser();
+        setCurrentUser(null)
+    }
+
     return (
 
         <Fragment>
@@ -17,7 +21,7 @@ const NavigationBar = () => {
                 <div className="nav-links-container">
                     <Link className="nav-link" to="/shop">SHOP</Link>
                     {currentUser ?
-                        <Link className="nav-link" to="">SIGN OUT</Link> :
+                        <Link className="nav-link" onClick={signOutHandler}>SIGN OUT</Link> :
                         <Link className="nav-link" to="/auth">SIGN IN</Link>
                     }
 
