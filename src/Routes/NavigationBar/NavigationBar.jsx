@@ -2,6 +2,8 @@ import { Outlet, Link } from "react-router-dom";
 import { Fragment, useContext } from "react";
 import "./navigation-bar.scss";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
+import CartIcon from "../../Components/cartIcon/cartIcon.component";
+import CartDropDown from "../../Components/CartDropdown/CartDropdown.component";
 import { UserContext } from "../../Context/UserContext";
 import { signOutUser } from "../../utils/FireBase/firebase.utils";
 const NavigationBar = () => {
@@ -20,8 +22,9 @@ const NavigationBar = () => {
                         <Link className="nav-link" onClick={signOutUser}>SIGN OUT</Link> :
                         <Link className="nav-link" to="/auth">SIGN IN</Link>
                     }
-
+                    <CartIcon/>
                 </div>
+                <CartDropDown/>
             </div>
             <Outlet />
         </Fragment>
