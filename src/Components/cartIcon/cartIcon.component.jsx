@@ -2,9 +2,9 @@
 import { ReactComponent as BagLogo } from "../../assets/shopping-bag.svg";
 import "./cartIcon.styles.scss";
 
-const CartIcon = ()=>{
+const CartIcon = ({onCLickHandler})=>{
     return(
-        <div className="cart-icon-container">
+        <div className="cart-icon-container" onClick={onCLickHandler}>
         <BagLogo className = "shopping-icon"/>
         <span className="item-count">0</span>
         </div>
