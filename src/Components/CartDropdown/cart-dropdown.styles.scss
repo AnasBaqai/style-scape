@@ -20,12 +20,22 @@
       height: 240px;
       display: flex;
       flex-direction: column;
-      overflow: auto;
+      overflow:auto;
     }
   
     button {
       margin-top: auto;
       font-size: 12px;
     }
+  }
+
+  ::-webkit-scrollbar {
+    background: white;
+    width: 7px;
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    background: lightgray;
+    border-radius: 5px;
   }
   

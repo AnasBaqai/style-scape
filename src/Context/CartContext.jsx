@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createContext } from "react";
 
 export const CartContext = createContext({
     isCartOpen: false,
     setIsCartOpen: () => { },
     cartItems: [],
-    addItemToCart: () => { }
+    addItemToCart: () => { },
+    totalItems: 0
 })
 
 const addCartItem = (cartItems, productToAdd) => {
@@ -15,13 +16,13 @@ const addCartItem = (cartItems, productToAdd) => {
     3. return new array of cartItems 
     */
 
-    const found = cartItems.find((cartItem)=>cartItem.id === productToAdd.id)
-    if(found){
-        return cartItems.map((cartItem)=>
-          cartItem.id === productToAdd.id ?{...cartItem,quantity:cartItem.quantity+1}: cartItem
+    const found = cartItems.find((cartItem) => cartItem.id === productToAdd.id)
+    if (found) {
+        return cartItems.map((cartItem) =>
+            cartItem.id === productToAdd.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
         )
     }
-    return [...cartItems,{...productToAdd,quantity:1}]
+    return [...cartItems, { ...productToAdd, quantity: 1 }]
     // let newArray = [];
     // let found = false;
 
@@ -51,18 +52,23 @@ const addCartItem = (cartItems, productToAdd) => {
 export const CartProvider = ({ children }) => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([])
-    const addItemToCart = (productToAdd) => {
-        const newCartItems = addCartItem(cartItems, productToAdd)
+    const [totalItems, setTotalItems] = useState(0);
 
+    useEffect(() => {
+        const newCartCount = cartItems.reduce((total, currCartItem) => total + currCartItem.quantity, 0)
+        setTotalItems(newCartCount)
+    }, [cartItems])
+    const addItemToCart = async (productToAdd) => {
+        const newCartItems = await addCartItem(cartItems, productToAdd)
         setCartItems(newCartItems)
-        console.log(cartItems)
     }
 
     const value = {
         isCartOpen,
         setIsCartOpen,
         cartItems,
-        addItemToCart
+        addItemToCart,
+        totalItems
     }
     return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
