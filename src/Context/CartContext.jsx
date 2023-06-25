@@ -6,7 +6,10 @@ export const CartContext = createContext({
     setIsCartOpen: () => { },
     cartItems: [],
     addItemToCart: () => { },
-    totalItems: 0
+    removeItemFromCart:()=>{ },
+    removeItemCompletely:()=>{},
+    totalItems: 0,
+    totalPrice: 0
 })
 
 const addCartItem = (cartItems, productToAdd) => {
@@ -23,52 +26,71 @@ const addCartItem = (cartItems, productToAdd) => {
         )
     }
     return [...cartItems, { ...productToAdd, quantity: 1 }]
-    // let newArray = [];
-    // let found = false;
+ 
 
-    // for (let i = 0; i < cartItems.length; i++) {
-    //     if (cartItems[i].id === productToAdd.id) {
-    //         cartItems[i].quantity++;
-    //         found = true;
-    //     }
-    //     newArray.push(cartItems[i]);
-    // }
 
-    // if (!found) {
-    //     const item = {
-    //         quantity: 1,
-    //         ...productToAdd
-    //     }
-    //     newArray.push(item);
-    // }
+}
+const removeCartItem = (cartItems, productToRemove) => {
+  
+    const found = cartItems.find((cartItem) => cartItem.id === productToRemove.id)
+    if (found) {
+        if(productToRemove.quantity===1){
+            return cartItems.filter((cartItem)=>{
+                return cartItem.id!== productToRemove.id
+            })
+        }
+        return cartItems.map((cartItem) =>
+            cartItem.id === productToRemove.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+        )
+    }
 
-    // return newArray;
-
+ 
 
 
 }
 
+const removeItem = (cartItems,productToRemove)=>{
+    return cartItems.filter((cartItem)=>{
+        return cartItem.id!== productToRemove.id
+    })
+}
 
 export const CartProvider = ({ children }) => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([])
     const [totalItems, setTotalItems] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         const newCartCount = cartItems.reduce((total, currCartItem) => total + currCartItem.quantity, 0)
         setTotalItems(newCartCount)
+        const newCartTotal = cartItems.reduce((total, currCartItem) => total + (currCartItem.quantity*currCartItem.price), 0)
+        setTotalPrice(newCartTotal)
+
     }, [cartItems])
-    const addItemToCart = async (productToAdd) => {
-        const newCartItems = await addCartItem(cartItems, productToAdd)
+    const addItemToCart =  (productToAdd) => {
+        const newCartItems = addCartItem(cartItems, productToAdd)
         setCartItems(newCartItems)
     }
+    const removeItemFromCart = (productToRemove) => {
+        const newCartItems =removeCartItem(cartItems, productToRemove)
+        setCartItems(newCartItems)
+    }
+    const removeItemCompletely = (productToRemove)=>{
+        const newCartItems = removeItem(cartItems,productToRemove)
+        setCartItems(newCartItems)
+    }
+
 
     const value = {
         isCartOpen,
         setIsCartOpen,
         cartItems,
         addItemToCart,
-        totalItems
+        removeItemFromCart,
+        removeItemCompletely,
+        totalItems,
+        totalPrice
     }
     return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
