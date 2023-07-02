@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { signInWithGooglePopUp, SignInUserWithEmailPassword } from "../../utils/FireBase/firebase.utils"
 import "./SignInForm.Styles.scss"
-import Button from "../Button/Button.Component"
+import Button,{BUTTON_TYPE_CLASSES} from "../Button/Button.Component"
 import FormInput from "../form-input/FormInput.Component"
 
 
@@ -65,7 +65,7 @@ const SignInForm = () => {
                 <FormInput label="Password" type="password" name="password" value={password} required onChange={onChangeHandler} />
                 <div className="buttons-container">
                     <Button type="submit" >SIGN IN</Button>
-                    <Button type="button" onClick={GoogleSignInHandler} buttonType={"google"}>GOOGLE SIGN IN</Button>
+                    <Button type="button" onClick={GoogleSignInHandler} buttonType={BUTTON_TYPE_CLASSES.google}>GOOGLE SIGN IN</Button>
                 </div>
             </form>
         </div>
