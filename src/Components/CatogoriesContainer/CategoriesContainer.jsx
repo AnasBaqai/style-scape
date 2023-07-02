@@ -1,6 +1,6 @@
 import CategoryItem from "../categoryItem/CategoryItem"
 import "./categories-container.scss"
-import { useNavigate } from "react-router-dom"
+
 const CategoriesContainer = ()=>{
     const categories = [
         {
@@ -34,8 +34,7 @@ const CategoriesContainer = ()=>{
           "route":"shop/mens"
         }
       ]
-      const navigate = useNavigate()
-      const navigateHandler = ()=>navigate
+   
     return(
         <div className="categories-container">
         
