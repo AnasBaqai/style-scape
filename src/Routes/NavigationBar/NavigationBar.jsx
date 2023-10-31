@@ -26,11 +26,13 @@ const NavigationBar = () => {
                 <Links  className="nav-links-container">
                     <NavLink className="nav-link" to="/shop">SHOP</NavLink>
                     {currentUser ?
+
                         <NavLink className="nav-link" onClick={signOutUser}>SIGN OUT</NavLink> :
                         <NavLink  className="nav-link" to="/auth">SIGN IN</NavLink>
                     }
                     <CartIcon onCLickHandler={cartClickHandler} />
                 </Links>
+
                 {isCartOpen?<CartDropDown/>:""}
                
             </NavigationContainer>

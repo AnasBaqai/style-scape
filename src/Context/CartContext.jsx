@@ -111,7 +111,7 @@ export const CartProvider = ({ children }) => {
         updateCartItemReducer(newCartItems)
     }
 const setIsCartOpen =(bool)=>{
-    console.log(bool)
+    
     dispatch(createAction('SET_IS_CART_OPEN',bool))
 }
 
