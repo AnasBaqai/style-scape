@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 //import { UserProvider } from './Context/UserContext';
-import { CategoriesProvider } from './Context/CategoriesContext';
+// import { CategoriesProvider } from './Context/CategoriesContext';
 import { CartProvider } from './Context/CartContext';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
@@ -15,11 +15,11 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         {/* <UserProvider> */}
-          <CategoriesProvider>
+          {/* <CategoriesProvider> */}
             <CartProvider>
               <App />
             </CartProvider>
-          </CategoriesProvider>
+          {/* </CategoriesProvider> */}
         {/* </UserProvider> */}
       </BrowserRouter>
     </Provider>
