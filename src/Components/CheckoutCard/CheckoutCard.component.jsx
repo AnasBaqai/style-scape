@@ -1,9 +1,13 @@
 import "./checkout-card.styles.scss"
 import { useDispatch } from "react-redux"
-const CheckoutCard = ({cartItems, cartItem,removeItemFromCart,addItemToCart,removeItemCompletely }) => {
+import { addItemToCart, removeItemCompletely, removeItemFromCart } from "../../store/cart/cart.action"
+import { selectCartItems } from "../../store/cart/cart.selector"
+import { useSelector } from "react-redux"
+const CheckoutCard = ({ cartItem }) => {
   
     const { name, quantity, imageUrl, price } = cartItem
     const dispatch = useDispatch()
+    const cartItems = useSelector(selectCartItems)
     return (
         <div className="checkout-item-container">
             <div className="image-container ">
