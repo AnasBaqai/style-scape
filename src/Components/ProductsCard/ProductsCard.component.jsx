@@ -1,10 +1,13 @@
 import "./productsCard.styles.scss"
 import Button from "../Button/Button.Component"
-import { CartContext } from "../../Context/CartContext";
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems } from "../../store/cart/cart.selector";
+import { addItemToCart } from "../../store/cart/cart.action";
+
 const ProductsCard = ({product})=>{
     const {imageUrl,price,name}= product;
-    const {addItemToCart} = useContext(CartContext)
+    const cartItems = useSelector(selectCartItems)
+    const dispatch = useDispatch()
    return(
     <div  className="product-card-container">
         <img src={imageUrl} alt={`${name}`}/>
@@ -12,7 +15,7 @@ const ProductsCard = ({product})=>{
         <span className="name">{name}</span>
         <span className="price">${price}</span>
         </div>
-        <Button buttonType="inverted" onClick={()=>addItemToCart(product)}>Add to Cart</Button>
+        <Button buttonType="inverted" onClick={()=>dispatch(addItemToCart(cartItems,product))}>Add to Cart</Button>
    
     </div>
    ) 

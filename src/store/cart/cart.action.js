@@ -42,23 +42,22 @@ const removeItem = (cartItems, productToRemove) => {
   });
 };
 
-export const setCartItems = (cartItems) =>
-  createAction(CART_ACTION_TYPES.SET_CART_ITEMS, cartItems);
-  
 export const addItemToCart = (cartItems, productToAdd) => {
+ 
   const newCartItems = addCartItem(cartItems, productToAdd);
-  setCartItems(newCartItems);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 export const removeItemFromCart = (cartItems, productToRemove) => {
   const newCartItems = removeCartItem(cartItems, productToRemove);
-  setCartItems(newCartItems);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 export const removeItemCompletely = (cartItems, productToRemove) => {
   const newCartItems = removeItem(cartItems, productToRemove);
-  setCartItems(newCartItems);
+ return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 
 export const setIsCartOpen = (isCartOpen) =>
   createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, isCartOpen);
+
 // export const setCartCount = (totalItems)=> createAction(CART_ACTION_TYPES.SET_CART_COUNT, totalItems)
 // export const setCartTotal = (totalPrice)=> createAction(CART_ACTION_TYPES.SET_CART_TOTAL, totalPrice)

@@ -1,5 +1,5 @@
 import { Outlet} from "react-router-dom";
-import { Fragment, useContext } from "react";
+import { Fragment} from "react";
 import { useSelector } from "react-redux";
 import { NavigationContainer,LogoContainer,Links,NavLink } from "./NavigationStyles";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
@@ -7,13 +7,15 @@ import CartIcon from "../../Components/cartIcon/cartIcon.component";
 import CartDropDown from "../../Components/CartDropdown/CartDropdown.component";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { signOutUser } from "../../utils/FireBase/firebase.utils";
-import { CartContext } from "../../Context/CartContext";
+import { useDispatch } from "react-redux";
+import { setIsCartOpen } from "../../store/cart/cart.action";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 const NavigationBar = () => {
     const currentUser = useSelector(selectCurrentUser)
-    const {isCartOpen,setIsCartOpen} = useContext(CartContext)
+    const isCartOpen = useSelector(selectIsCartOpen)
+    const dispatch = useDispatch()
     const cartClickHandler = ()=>{
-
-        setIsCartOpen(!isCartOpen)
+        dispatch(setIsCartOpen(!isCartOpen))
     }
 
     return (
